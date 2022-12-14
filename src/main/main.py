@@ -3,7 +3,7 @@
 На выходе зашифрованная и расшифрованная строки.
 """
 
-__version__ = '0.2'
+__version__ = '0.3'
 __author__ = 'Linar Shayakhmetov'
 
 ALPHABET_LEFT: int = 0x0  # Можно поменять левый край алфавита
@@ -62,16 +62,17 @@ def input_shift() -> int:
         shift: int = int(input('Введите смещение: '))
         return shift
     except ValueError:
-        print("Смещение должно быть целым числом!\n")
+        print("\nСмещение должно быть целым числом!")
         return input_shift()
 
 
 if __name__ == '__main__':
-    text: str = input_text()
-    shift: int = input_shift()
+    while True:
+        text: str = input_text()
+        shift: int = input_shift()
 
-    text_encrypt: str = encryptionCaesar(text, shift)
-    text_decrypt: str = decryptionCaesar(text_encrypt, shift)
+        text_encrypt: str = encryptionCaesar(text, shift)
+        text_decrypt: str = decryptionCaesar(text_encrypt, shift)
 
-    print(f'Результат шифровки: {text_encrypt}')
-    print(f'Результат расшифровки: {text_decrypt}')
+        print(f'\nРезультат шифровки: {text_encrypt}')
+        print(f'Результат расшифровки: {text_decrypt}\n')
