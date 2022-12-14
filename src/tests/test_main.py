@@ -1,9 +1,12 @@
-import unittest
+import sys
+sys.path.insert(0, 'src/main')
+
 from main import encryptionCaesar
 from main import decryptionCaesar
+import unittest
 
 
-class TestNonSurrogat(unittest.TestCase):
+class TestCeasar(unittest.TestCase):
     def test_encryption(self):
         """Тестируем шифровку.
         Если fork возвращает True, то тест успешно пройден
@@ -26,6 +29,8 @@ class TestNonSurrogat(unittest.TestCase):
         assert fork('abc', 1, 'bcd', True)
         # отрицательное смещение
         assert fork('bcd', -1, 'abc', True)
+        # обработка суррогатов
+        assert fork(chr(0xD800-1), 1, chr(0xDFFF+1), True)
 
     def test_decryption(self):
         """Тестируем расшифровку.
@@ -49,6 +54,8 @@ class TestNonSurrogat(unittest.TestCase):
         assert fork('abc', 1, 'bcd', False)
         # отрицательное смещение
         assert fork('bcd', -1, 'abc', False)
+        # обработка суррогатов
+        assert fork(chr(0xD800-1), 1, chr(0xDFFF+1), False)
 
 
 def fork(to_encode: str, shift: int, to_decode: str, encode: bool) -> bool:
@@ -70,13 +77,3 @@ def fork(to_encode: str, shift: int, to_decode: str, encode: bool) -> bool:
 
 if __name__ == "__main__":
     unittest.main()
-
-# крайний левый
-# крайний правый
-# очень длинное значение
-# очень короткое значение
-# обычное значение
-# проверка на тип введенных данных
-# используйте ''.join() — таким образом склеивание строк будет выполнено за
-# линейное время
-# isinstance
