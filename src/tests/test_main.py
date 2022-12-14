@@ -26,7 +26,7 @@ class TestCeasar(unittest.TestCase):
         # 1 крайний правый символ
         assert fork(chr(0x10FFFF), 1, chr(0), True)
         # нулевое смещение
-        assert fork('abc', 1, 'bcd', True)
+        assert fork('abc', 0, 'abc', True)
         # отрицательное смещение
         assert fork('bcd', -1, 'abc', True)
         # обработка суррогатов
@@ -51,11 +51,13 @@ class TestCeasar(unittest.TestCase):
         # 1 крайний правый символ
         assert fork(chr(0x10FFFF), 1, chr(0), False)
         # нулевое смещение
-        assert fork('abc', 1, 'bcd', False)
+        assert fork('abc', 0, 'abc', False)
         # отрицательное смещение
         assert fork('bcd', -1, 'abc', False)
         # обработка суррогатов
         assert fork(chr(0xD800-1), 1, chr(0xDFFF+1), False)
+        # обработка ошибок
+        # assert fork(1, 1, 2, False)
 
 
 def fork(to_encode: str, shift: int, to_decode: str, encode: bool) -> bool:

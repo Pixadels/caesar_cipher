@@ -46,9 +46,29 @@ def decryptionCaesar(text: str, shift: int) -> str:
     return new_str
 
 
+def input_text() -> str:
+    """Ввод сообщения для шифровки с обработкой ошибок"""
+    try:
+        text: str = str(input('Введите текст для шифровки: '))
+        return text
+    except ValueError:
+        print("\nСообщение для шифровки должно быть строкой!")
+        return input_text()
+
+
+def input_shift() -> int:
+    """Ввод смещения для шифровки с обработкой ошибок"""
+    try:
+        shift: int = int(input('Введите смещение: '))
+        return shift
+    except ValueError:
+        print("Смещение должно быть целым числом!\n")
+        return input_shift()
+
+
 if __name__ == '__main__':
-    text: str = str(input('Введите текст для шифровки: '))
-    shift: int = int(input('Введите смещение: '))
+    text: str = input_text()
+    shift: int = input_shift()
 
     text_encrypt: str = encryptionCaesar(text, shift)
     text_decrypt: str = decryptionCaesar(text_encrypt, shift)
