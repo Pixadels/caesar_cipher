@@ -17,10 +17,10 @@ SUR_LEN: int = SUR_RIGHT - SUR_LEFT + 1  # 57343 - 55296 + 1
 
 def encryptionCaesar(text: str, shift: int) -> str:
     """Зашифруем полученную строку."""
-    ALPHABET_LEN = ALPHABET_RIGHT - ALPHABET_LEFT + 1
-    new_str = ''
+    ALPHABET_LEN: int = ALPHABET_RIGHT - ALPHABET_LEFT + 1
+    new_str: str = ''
     for ch in text:
-        new_ord = ((ord(ch)+shift-ALPHABET_LEFT) % ALPHABET_LEN)
+        new_ord: int = ((ord(ch)+shift-ALPHABET_LEFT) % ALPHABET_LEN)
         new_ord += ALPHABET_LEFT
         # обработка суррогатов, они не принимаются и не возвращаются
         if SUR_LEFT <= new_ord <= SUR_RIGHT:
@@ -33,10 +33,10 @@ def encryptionCaesar(text: str, shift: int) -> str:
 def decryptionCaesar(text: str, shift: int) -> str:
     """Расшифруем ранее зашифрованную строку."""
     shift *= -1
-    ALPHABET_LEN = ALPHABET_RIGHT - ALPHABET_LEFT + 1
-    new_str = ''
+    ALPHABET_LEN: int = ALPHABET_RIGHT - ALPHABET_LEFT + 1
+    new_str: str = ''
     for ch in text:
-        new_ord = ((ord(ch)+shift-ALPHABET_LEFT) % ALPHABET_LEN)
+        new_ord: int = ((ord(ch)+shift-ALPHABET_LEFT) % ALPHABET_LEN)
         new_ord += ALPHABET_LEFT
         # обработка суррогатов, они не принимаются и не возвращаются
         if SUR_LEFT <= new_ord <= SUR_RIGHT:
